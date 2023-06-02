@@ -14,22 +14,26 @@
 		}
 	}
 	</script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </head>
 <body>
     
-    <div id="info">
-        <h1>Game-Rob</h1>
+    <div class="info container">
+        <h1 class = "text-center">Game-Rob</h1>
         <h3>Controles</h3>
         <div>
             <div>
-                <h5>1 -> opción 1</h5>
-                <h5>2 -> opción 2</h5>
-                <h5>3 -> opción 3</h5>
-                <h5>Enter -> opción 4</h5>
-            </div>
-            <div>
-
+                <p>
+                    w -> Avanzar<br>
+                    s -> Detenerce<br>
+                    shift -> Correr<br>
+                    Enter -> Golpe<br> 
+                </p>
+                <p>
+                    Espacio -> Saltar<br>
+                    ESC -> Riniciar<br>
+                    Ctrl -> Centarce<br>
+                </p>
             </div>
         </div>
     </div>
@@ -59,7 +63,7 @@
         let container, stats, clock, gui, mixer, actions, activeAction, previousAction;
         let camera, scene, renderer, model, face;
 
-        const api = { state: 'Walking' };
+        const api = { state: 'Death' };
 
         init();
         animate();
@@ -118,7 +122,7 @@
 
             renderer = new THREE.WebGLRenderer( { antialias: true } );
             renderer.setPixelRatio( window.devicePixelRatio );
-            renderer.setSize( window.innerWidth, window.innerHeight );
+            renderer.setSize( (window.innerWidth-250), (window.innerHeight-300) );
             container.appendChild( renderer.domElement );
 
             window.addEventListener( 'resize', onWindowResize );
@@ -134,7 +138,7 @@
             const states = [ 'Idle', 'Walking', 'Running', 'Dance', 'Death', 'Sitting', 'Standing' ];
             const emotes = [ 'Jump', 'Yes', 'No', 'Wave', 'Punch', 'ThumbsUp' ];
 
-            gui = new GUI();
+            //gui = new GUI();
 
             mixer = new THREE.AnimationMixer( model );
 
@@ -216,20 +220,29 @@
 
             }
 
-            activeAction = actions[ 'Walking' ];
+            activeAction = actions[ 'Death' ];
             activeAction.play();
 
             expressionFolder.open();
 
         }
 
+        // Eventos de control 
         document.addEventListener('keydown', function(event) {
 			if (event.key === 'Space' || event.keyCode === 32) {
 				fadeToAction( 'Jump', 0.2 );
-			} else if (event.key === 'Enter' || event.keyCode === 32) {
+			} else if (event.key === 'Enter') {
                 fadeToAction( 'Punch', 0.2 );
-            } else {
-                
+            } else if (event.key === 'Escape') {
+                fadeToAction( 'Death', 0.2 );shiftKey
+            }else if (event.key === 'w') {
+                fadeToAction( 'Walking', 0.2 );
+            }else if (event.shiftKey) {
+                fadeToAction( 'Running', 0.2 ); 
+            }else if (event.key === 's') {
+                fadeToAction( 'Standing', 0.2 );
+            }else if (event.ctrlKey) {
+                fadeToAction( 'Sitting', 0.2 );
             }
 		});
 
@@ -255,7 +268,7 @@
 
         function onWindowResize() {
 
-            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.aspect = (window.innerWidth-200) / (window.innerHeight-200);
             camera.updateProjectionMatrix();
 
             renderer.setSize( window.innerWidth, window.innerHeight );
