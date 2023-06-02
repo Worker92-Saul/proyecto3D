@@ -223,6 +223,16 @@
 
         }
 
+        document.addEventListener('keydown', function(event) {
+			if (event.key === 'Space' || event.keyCode === 32) {
+				fadeToAction( 'Jump', 0.2 );
+			} else if (event.key === 'Enter' || event.keyCode === 32) {
+                fadeToAction( 'Punch', 0.2 );
+            } else {
+                
+            }
+		});
+
         function fadeToAction( name, duration ) {
 
             previousAction = activeAction;
