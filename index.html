@@ -22,18 +22,18 @@
         <h1 class = "text-center text-info display-7">Game-Rob</h1>
         <h3 class = "text-center">Controles</h3>
         <div>
-            <div class = "row justify-content-center">
-                <p class = "bg-secondary col-2">
+            <div class = "row justify-content-center text-center">
+                <p class = "bg-secondary col-2 ">
                     w -> Avanzar<br>
                     s -> Detenerce<br>
-                    Ctrl -> Sentarce<br>
+                    Ctrl -> Sentarse<br>
                     Espacio -> Saltar<br>
                     
                 </p>
                 <p class = "bg-secondary col-2">
                     shift -> Correr<br>
                     Enter -> Golpe<br> 
-                    ESC -> Riniciar<br> 
+                    ESC -> Desarmar<br> 
                 </p>
             </div>
         </div>
@@ -75,7 +75,7 @@
             container = document.getElementById('canvas-container');
             document.body.appendChild( container );
 
-            camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.25, 100 );
+            camera = new THREE.PerspectiveCamera( 45, window.innerWidth / (window.innerHeight), 0.25, 100 );
             camera.position.set( - 5, 3, 10 );
             camera.lookAt( 0, 2, 0 );
 
@@ -124,7 +124,7 @@
 
             renderer = new THREE.WebGLRenderer( { antialias: true } );
             renderer.setPixelRatio( window.devicePixelRatio );
-            renderer.setSize( (window.innerWidth-410), (window.innerHeight-220) );
+            renderer.setSize( (window.innerWidth-220), (window.innerHeight-220) );
             container.appendChild( renderer.domElement );
 
             window.addEventListener( 'resize', onWindowResize );
